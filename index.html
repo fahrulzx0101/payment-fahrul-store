@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Halaman Pembayaran FAHRUL STORE</title>
+  <style>
+    :root {
+      --primary-color: #0a74da;
+      --primary-dark: #095ab0;
+      --bg-light: #ffffff;
+      --bg-dark: #1e1e1e;
+      --text-light: #333;
+      --text-dark: #eee;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(45deg, rgb(255, 0, 150), rgb(0, 204, 255), rgb(102, 255, 0), rgb(255, 255, 0));
+      background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+      color: var(--text-light);
+      padding: 20px;
+      margin: 0;
+      max-width: 500px;
+      margin: auto;
+      transition: background 1.5s, color 0.3s;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: linear-gradient(45deg, rgb(255, 0, 150), rgb(0, 204, 255), rgb(102, 255, 0), rgb(255, 255, 0));
+        color: var(--text-dark);
+      }
+
+      .container {
+        background: #2a2a2a;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+      }
+
+      .copy-box {
+        background: #333;
+      }
+
+      .copy-box:hover {
+        background: #444;
+      }
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      background: var(--bg-light);
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .payment-info {
+      margin: 20px 0;
+    }
+
+    .label {
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    .copy-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #eee;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .copy-box:hover {
+      background: #ddd;
+    }
+
+    .qris {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    img {
+      width: 200px;
+      border-radius: 6px;
+      border: 20px solid #ccc;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px 10px;
+      margin-top: 4px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
+    ol {
+      padding-left: 18px;
+    }
+
+    #confirmationMessage {
+      margin-top: 20px;
+      padding: 10px;
+      border-left: 4px solid var(--primary-color);
+      background: #f0f8ff;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Pembayaran FAHRUL STORE</h2>
+    <hr>
+
+    <div class="payment-info">
+      <div class="label">Konfirmasi Pembayaran:</div>
+      <form id="paymentForm">
+        <label for="name">Nama Anda:</label><br>
+        <input type="text" id="name" name="name" required><br>
+
+        <label for="amount">Jumlah Pembayaran (Rp):</label><br>
+        <input type="number" id="amount" name="amount" required><br>
+
+        <button type="submit">Kirim Pembayaran</button>
+      </form>
+
+      <div id="confirmationMessage"></div>
+    </div>
+
+    <div class="payment-info">
+      <div class="label">Nomor DANA:</div>
+      <div class="copy-box" onclick="copyDana()">
+        <span id="danaNumber">083159206263</span>
+        <button>Salin</button>
+      </div>
+    </div>
+
+    <div class="payment-info">
+      <div class="label">Cara Transfer DANA:</div>
+      <ol>
+        <li>Buka aplikasi DANA.</li>
+        <li>Pilih menu <strong>"Kirim"</strong>.</li>
+        <li>Masukkan nomor di atas.</li>
+        <li>Pastikan atas nama: <strong>Adi Nxx</strong>.</li>
+        <li>Masukkan jumlah dana dan lanjutkan pembayaran.</li>
+      </ol>
+    </div>
+
+    <div class="qris">
+      <div class="label">Atau Scan QRIS:</div>
+      <img src="https://files.catbox.moe/f1ybjf.jpg" alt="QRIS Pembayaran">
+    </div>
+  </div>
+
+  <script>
+    function copyDana() {
+      const danaNumber = document.getElementById("danaNumber").textContent;
+      navigator.clipboard.writeText(danaNumber).then(() => {
+        alert("Nomor DANA disalin!");
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("paymentForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const name = document.getElementById("name").value;
+        const amount = document.getElementById("amount").value;
+
+        const message = ` 
+          <strong>Terima kasih, ${name}!</strong><br>
+          Kami telah menerima konfirmasi pembayaran sebesar <strong>Rp ${parseInt(amount).toLocaleString()}</strong>.<br>
+          tolong kirim bukti tf nya ke Fahrul Store.`;
+
+        document.getElementById("confirmationMessage").innerHTML = message;
+
+        localStorage.setItem("paymentData", JSON.stringify({ name, amount }));
+        document.getElementById("paymentForm").reset();
+      });
+    });
+  </script>
+</body>
+</html>
